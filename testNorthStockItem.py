@@ -1,5 +1,5 @@
 import unittest
-from NorthStockItem import *
+from StockItem import *
 
 class TestNorthStock(unittest.TestCase):
     def test_Hakitsy(self):

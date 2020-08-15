@@ -1,7 +1,7 @@
-class NorthStockItem:
-    def __init__(self, name, guid):
-        self._name = name
-        self._guid = guid
+from StockItem import *
 
-    def __str__(self):
-        return self._name
+class NorthStockItem(StockItem):
+    def __init__(self, name, guid):
+        super().__init__(name, guid)
+
+
