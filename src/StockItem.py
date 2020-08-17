@@ -1,19 +1,16 @@
-from StockState import *
+import uuid
+
 class StockItem:
-    def __init__(self, name, guid):
+    def __init__(self, name):
         # todo: enter decription!
         """
-        Enter description......
-        :param farEastPrice:
-        :param exportPrice:
-        :param wholesalePrice:
-        :param retailPrice:
-        :param currency:
+
+        :param name:
         """
         # todo: argument check!
-        self._name = name
-        self._guid = guid
-        self._subItemDetails = {}
+        self.name = name
+        # todo: check if we need guid! I'm not definetly sure...
+        self.guid = uuid.uuid4()
 
     def __str__(self):
-        return self._name
+        return self.name

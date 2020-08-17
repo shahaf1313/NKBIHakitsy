@@ -8,9 +8,9 @@ class Ammounts:
         :param itemsBought:
         """
         # todo: argument check!
-        self._itemsInStock = itemsInStock
-        self._itemsSold = itemsSold
-        self._itemsBought = itemsBought
+        self.itemsInStock = itemsInStock
+        self.itemsSold = itemsSold
+        self.itemsBought = itemsBought
 
 
 class Prices:
@@ -25,24 +25,21 @@ class Prices:
         :param currency:
         """
         # todo: argument check!
-        self._farEastPrice = farEastPrice
-        self._exportPrice = exportPrice
-        self._wholesalePrice = wholesalePrice
-        self._retailPrice = retailPrice
-        self._currency = currency
+        self.farEastPrice = farEastPrice
+        self.exportPrice = exportPrice
+        self.wholesalePrice = wholesalePrice
+        self.retailPrice = retailPrice
+        self.currency = currency
 
 
 class StockState:
-    def __init__(self):
+    def __init__(self,
+                 prices: type(Prices) = Prices(0, 0, 0, 0, "dollar"),
+                 ammounts: type(Ammounts) = Ammounts(0, 0, 0)):
         # todo: enter decription!
         """
-        Enter description......
-        :param farEastPrice:
-        :param exportPrice:
-        :param wholesalePrice:
-        :param retailPrice:
-        :param currency:
+        This function initializes StockState with zeros for Ammounts and Prices
         """
         # todo: argument check!
-        self._ammounts = Ammounts(0, 0, 0)
-        self._prices = Prices(0, 0, 0, 0, 0)
+        self.prices = prices
+        self.ammounts = ammounts
