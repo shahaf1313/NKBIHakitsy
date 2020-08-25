@@ -12,6 +12,7 @@ class Amounts:
         self.sellingDate = []
         self.itemsImported = itemsImported
 
+
 class Prices:
     def __init__(self,
                  farEastPrice: float,
@@ -36,8 +37,8 @@ class Prices:
 
 class StockState:
     def __init__(self,
-                 prices: type(Prices) = Prices(0, 0, 0, 0, "dollar"),
-                 amounts: type(Amounts) = Amounts(0, 0, {})):
+                 prices: Prices = Prices(0, 0, 0, 0, "dollar"),
+                 amounts: Amounts = Amounts(0, 0, {})):
         """
         This function initializes StockState class. If given - initial values are transferred to Amounts and Prices.
         If not given, Amounts and Prices are automatically created, initialized to zero.

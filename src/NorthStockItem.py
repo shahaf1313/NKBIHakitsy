@@ -11,7 +11,7 @@ class NorthStockItem(StockItem):
         super().__init__(name)
         self.subItemDetails = {}
 
-    def addStockItemPrices(self, size: str, color: str, prices: Prices):
+    def updateStockItemPrices(self, size: str, color: str, prices: Prices):
         """
         This function adds key (size, color) to the subItemsDetails dictionary, and initializes Prices to be the given
         prices parameter. If this tuple already exists - the function finds it and updates Prices accordingly.
@@ -23,4 +23,17 @@ class NorthStockItem(StockItem):
             self.subItemDetails[(size, color)].prices = prices
         else:
             self.subItemDetails[(size, color)] = StockState(prices=prices)
+
+    def updateStockItemAmounts(self, size: str, color: str, amounts: Amounts):
+        """
+        This function adds key (size, color) to the subItemsDetails dictionary, and initializes Amounts to be the given
+        prices parameter. If this tuple already exists - the function finds it and updates Prices accordingly.
+        :param size: Size string of the current item.
+        :param color: Color string of the current item.
+        :param amounts: New/updated prices of the given stock item.
+        """
+        if (size, color) in self.subItemDetails:
+            self.subItemDetails[(size, color)].amounts = amounts
+        else:
+            self.subItemDetails[(size, color)] = StockState(amounts=amounts)
 
