@@ -1,15 +1,16 @@
 from src.StockItem import *
 from src.StockState import *
+import time
 
 
 class NorthStockItem(StockItem):
-    def __init__(self, name):
+    def __init__(self, name, year, serial_number, barcode):
         """
         This function initializes the class.
         :param name: name of the current NorthStockItem.
         """
-        super().__init__(name)
-        self.subItemDetails = {}
+        super().__init__(name, year, serial_number, barcode)
+        self.size_color_dict = {}
 
     def updateStockItemPrices(self, size: str, color: str, prices: Prices):
         """
@@ -19,10 +20,10 @@ class NorthStockItem(StockItem):
         :param color: Color string of the current item.
         :param prices: New/updated prices of the given stock item.
         """
-        if (size, color) in self.subItemDetails:
-            self.subItemDetails[(size, color)].prices = prices
+        if (size, color) in self.size_color_dict:
+            self.size_color_dict[(size, color)].prices = prices
         else:
-            self.subItemDetails[(size, color)] = StockState(prices=prices)
+            self.size_color_dict[(size, color)] = StockState(prices=prices)
 
     def updateStockItemAmounts(self, size: str, color: str, amounts: Amounts):
         """
@@ -32,8 +33,8 @@ class NorthStockItem(StockItem):
         :param color: Color string of the current item.
         :param amounts: New/updated prices of the given stock item.
         """
-        if (size, color) in self.subItemDetails:
-            self.subItemDetails[(size, color)].amounts = amounts
+        if (size, color) in self.size_color_dict:
+            self.size_color_dict[(size, color)].amounts = amounts
         else:
-            self.subItemDetails[(size, color)] = StockState(amounts=amounts)
+            self.size_color_dict[(size, color)] = StockState(amounts=amounts)
 

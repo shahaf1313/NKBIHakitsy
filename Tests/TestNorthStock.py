@@ -1,6 +1,7 @@
 import unittest
 import datetime
 from src.NorthStock import *
+from src.StockState import *
 
 
 class TestNorthStockClass(unittest.TestCase):
@@ -17,8 +18,8 @@ class TestNorthStockClass(unittest.TestCase):
         north.setStockItemsDetails("Pulse", "10", "red", pulse10Price, pulse10Amounts)
         north.setStockItemsDetails("Pulse", "10", "green", pulse10Price, pulse10Amounts)
         self.assertEqual(len(north.stock), 2)
-        self.assertEqual(len(north.stock[0].subItemDetails), 2)
-        self.assertEqual(len(north.stock[1].subItemDetails), 2)
+        self.assertEqual(len(north.stock[0].size_color_dict), 2)
+        self.assertEqual(len(north.stock[1].size_color_dict), 2)
 
 if __name__ == '__main__':
     unittest.main()
