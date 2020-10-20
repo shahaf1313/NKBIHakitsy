@@ -7,8 +7,8 @@ from src.StockState import *
 class TestNorthStockClass(unittest.TestCase):
     def test_north_stock(self):
         north = NorthStock()
-        north.addStockItem("Orbit")
-        north.addStockItem("Pulse")
+        north.AddStockItem("Orbit")
+        north.AddStockItem("Pulse")
         orbit10Price = Prices(10, 15, 25, 50, "dollar")
         pulse10Price = Prices(13, 18, 28, 53, "dollar")
         orbit10Amounts = Amounts(10, 9, {datetime.date: 1})

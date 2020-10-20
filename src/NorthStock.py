@@ -1,6 +1,12 @@
 from src.NorthStockItem import *
-from src.StockState import *
+import pandas as pd
+from src.Constants import *
 
+
+class NorthStockException(Exception):
+    def __init__(self, message):
+        super.__init__()
+        self.message = message
 
 class NorthStock:
     """
@@ -10,54 +16,43 @@ class NorthStock:
     def __init__(self):
         self.stock = {}
 
-    def addStockItem(self,
+    def AddStockItem(self,
                      name: str,
                      year: str,
-                     serial_number: str,
+                     item_number: str,
                      barcode: str,
                      size: str = None,
                      color: str = None,
                      prices: Prices = None,
                      amounts: Amounts = None):
 
-        if serial_number not in self.stock.keys():
-            current_north_stock_item = NorthStockItem(name, year, serial_number, barcode)
-            self.stock[serial_number] = current_north_stock_item
+        if barcode not in self.stock.keys():
+            self.stock[barcode] = NorthStockItem(name, year, item_number, barcode, size, color, prices, amounts)
         else:
-            current_north_stock_item = self.stock[serial_number]
+            raise NorthStockException("Tried to add an item that already in stock!")
 
-        if (size is not None) and (color is not None):
-            if (size, color) not in current_north_stock_item.size_color_dict:
-                current_stock_state = StockState()
-                current_north_stock_item.size_color_dict[(size, color)] = current_stock_state
-            else:
-                current_stock_state = current_north_stock_item.size_color_dict[(size, color)]
+    def ReadStockFromExel(self, stock_file_path: str, year: str, header_row: int,
+                          default_columns_map: ColumnsMap = DefaultColumnsMap,
+                          string_columns_names: list = DefaultStringColumns):
+        converters = {}
+        for col_name in string_columns_names:
+            converters[col_name] = str
+        stock_file = pd.read_excel(stock_file_path, skiprows=header_row - 1, keep_default_na=False,
+                                   converters=converters)
+        for index, row in stock_file.iterrows():
+            if row[default_columns_map.barcode] in self.stock.keys():
+                print("ReadStockFromExel :: item %s %s %s is already in stock!" % (row[default_columns_map.name], row[default_columns_map.size], row[default_columns_map.color]))
+                continue
+            prices = Prices(far_east_price=float('nan'), export_price=row[default_columns_map.export_price],
+                            wholesale_price=float('nan'), retail_price=row[default_columns_map.retail_price],
+                            currency=row[default_columns_map.currency])
+            if default_columns_map.far_east_price in row.values:
+                prices.farEastPrice = row[default_columns_map.far_east_price]
+            self.AddStockItem(name=row[default_columns_map.name],
+                              year=year,
+                              item_number=row[default_columns_map.serial_number],
+                              barcode=row[default_columns_map.barcode],
+                              size=row[default_columns_map.size],
+                              color=row[default_columns_map.color],
+                              prices=prices)
 
-            if prices is not None:
-                current_stock_state.prices = prices
-
-            if amounts is not None:
-                current_stock_state.amounts = amounts
-
-    # def setStockItemsDetails(self,
-    #                          name: str,
-    #                          size: str,
-    #                          color: str,
-    #                          prices: Prices = None,
-    #                          amounts: Amounts = None):
-    #     """
-    #     todo: document!
-    #     :param name:
-    #     :param size:
-    #     :param color:
-    #     :param prices:
-    #     :param amounts:
-    #     :return:
-    #     """
-    #     for item in self.stock:
-    #         if name == item.name:
-    #             if prices is not None:
-    #                 item.updateStockItemPrices(size, color, prices)
-    #             if amounts is not None:
-    #                 item.updateStockItemAmounts(size, color, amounts)
-    #             break
