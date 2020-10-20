@@ -4,12 +4,12 @@ import time
 
 
 class NorthStockItem(StockItem):
-    def __init__(self, name, year, serial_number, barcode):
+    def __init__(self, name, year, item_number, barcode):
         """
         This function initializes the class.
         :param name: name of the current NorthStockItem.
         """
-        super().__init__(name, year, serial_number, barcode)
+        super().__init__(name, year, item_number, barcode)
         self.size_color_dict = {}
 
     def updateStockItemPrices(self, size: str, color: str, prices: Prices):

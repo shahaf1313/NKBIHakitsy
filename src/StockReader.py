@@ -46,7 +46,3 @@ def ReadStockFromExel(stock_file_path: str, year: str, header_row: int, default_
     return stock
 
 
-stock2020path = r'C:\Users\Shahaf\Documents\North Kiteboarding Israel\North 2021\Games\Orderform North Kiteboarding 2020 Export Updated Prices.xlsx'
-header_row_2020 = 10
-stock2020 = ReadStockFromExel(stock2020path, 'MY20', header_row_2020)
-k = 1
